@@ -1,0 +1,26 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "Ecommerce  web application for learning concepts of development",
+  "main": "/server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitish-devop/e-commerce.git"
+  },
+  "author": "Nitish Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nitish-devop/e-commerce/issues"
+  },
+  "homepage": "https://github.com/nitish-devop/e-commerce#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.2"
+  }
+}
