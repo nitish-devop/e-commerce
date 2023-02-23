@@ -1,18 +1,18 @@
 const Product = require("../models/Product");
 const ErrorHandler = require("../utils/ErrorHandler");
-
+const catchAsyncError = require('../middlewares/catchAsyncError');
 // Create document in Product collection
-module.exports.createProduct = async (req, res) => {
+module.exports.createProduct = catchAsyncError(async (req, res) => {
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
     message: "Product Created",
     product,
   });
-};
+});
 
 // Update document in Product collection
-module.exports.updateProduct = async (req, res) => {
+module.exports.updateProduct = catchAsyncError(async (req, res) => {
   //  Fetch Product by id
   let product = await Product.findById(req.params.id);
 
@@ -30,9 +30,9 @@ module.exports.updateProduct = async (req, res) => {
       product,
     });
   }
-};
+});
 
-module.exports.deleteProduct = async (req, res, next) => {
+module.exports.deleteProduct = catchAsyncError(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -46,16 +46,12 @@ module.exports.deleteProduct = async (req, res, next) => {
         product,
       });
     }
-};
+});
 
-module.exports.getProduct = async (req, res) => {
+module.exports.getProduct = catchAsyncError(async (req,res,next) => {
     let product = await Product.findById(req.params.id);
     if (!product) {
-        console.log("Product not found.");
-        res.status(201).json({
-          success: false,
-          message: "Product not found.",
-        });
+        return next(new ErrorHandler('Product not found.',404));
       } else {
        
         res.status(201).json({
@@ -64,9 +60,9 @@ module.exports.getProduct = async (req, res) => {
           product,
         });
       }
-};
+});
 
-module.exports.allProducts = async (req, res) => {
+module.exports.allProducts = catchAsyncError(async (req, res) => {
   const pro = await Product.find();
 
   res.status(201).json({
@@ -74,4 +70,4 @@ module.exports.allProducts = async (req, res) => {
     message: "All products are here.",
     pro,
   });
-};
+});
